@@ -1,0 +1,718 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Net3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{c+c1}{\PYZsh{}this is heavily based on code from }
+          \PY{c+c1}{\PYZsh{}https://www.digitalocean.com/community/tutorials/how\PYZhy{}to\PYZhy{}graph\PYZhy{}word\PYZhy{}frequency\PYZhy{}using\PYZhy{}matplotlib\PYZhy{}with\PYZhy{}python\PYZhy{}3}
+          \PY{c+c1}{\PYZsh{}I am not familiar with python, so I am using this as a guide\PYZhy{} A}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{sys}
+          \PY{k+kn}{import} \PY{n+nn}{operator}
+          \PY{k+kn}{import} \PY{n+nn}{argparse}
+          
+          
+          \PY{k}{def} \PY{n+nf}{main}\PY{p}{(}\PY{n}{word2}\PY{p}{,} \PY{n}{filename2}\PY{p}{)}\PY{p}{:}
+          \PY{c+c1}{\PYZsh{}this just opens the file\PYZhy{}A}
+              \PY{k}{try}\PY{p}{:}
+                  \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename2}\PY{p}{)}
+              \PY{k}{except} \PY{n+ne}{FileNotFoundError}\PY{p}{:}
+          
+                  \PY{c+c1}{\PYZsh{} Custom error print}
+                  \PY{n}{sys}\PY{o}{.}\PY{n}{stderr}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{filename2} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ does not exist!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{sys}\PY{o}{.}\PY{n}{exit}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          
+              \PY{n}{r} \PY{o}{=} \PY{n}{word\PYZus{}freq}\PY{p}{(}\PY{n}{word2}\PY{p}{,} \PY{n}{filename2}\PY{p}{)}
+              \PY{k}{return} \PY{n}{r}
+          
+          \PY{c+c1}{\PYZsh{}this counts how often a particular word apears in the document\PYZhy{}A}
+          \PY{k}{def} \PY{n+nf}{word\PYZus{}freq}\PY{p}{(}\PY{n}{word}\PY{p}{,} \PY{n}{filename}\PY{p}{)}\PY{p}{:}
+              \PY{n}{doc} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}} \PY{c+c1}{\PYZsh{}the dictionary of frequencies\PYZhy{} A}
+          
+              \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{)}\PY{p}{:}
+          
+                  \PY{c+c1}{\PYZsh{} Assume each word is separated by a space}
+                  \PY{c+c1}{\PYZsh{}This will go through a line of text, and either incrament that word in the dictionary}
+                  \PY{c+c1}{\PYZsh{}or create a new entry depending on if the word has been encountered before \PYZhy{}A}
+                  \PY{n}{split} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{entry} \PY{o+ow}{in} \PY{n}{split}\PY{p}{:}
+                      \PY{k}{if} \PY{p}{(}\PY{n}{doc}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}contains\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{entry}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{doc}\PY{p}{[}\PY{n}{entry}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{doc}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{entry}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{doc}\PY{p}{[}\PY{n}{entry}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+          
+              \PY{c+c1}{\PYZsh{}This part is useless to me, I do not want the user to have to give a particular word \PYZhy{}A}
+              \PY{c+c1}{\PYZsh{}if (word not in doc):}
+                  \PY{c+c1}{\PYZsh{}sys.stderr.write(\PYZdq{}Error: \PYZdq{} + word + \PYZdq{} does not appear in \PYZdq{} + filename)}
+                  \PY{c+c1}{\PYZsh{}sys.exit(1)}
+          
+              \PY{c+c1}{\PYZsh{}this sorts the dictionary in reverse order... look into what [:: \PYZhy{}1] does!}
+              \PY{c+c1}{\PYZsh{}it reverses the sorted list, so what you get is the highest t least order \PYZhy{}A}
+              \PY{n}{sorted\PYZus{}doc} \PY{o}{=} \PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{doc}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{operator}\PY{o}{.}\PY{n}{itemgetter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{just\PYZus{}the\PYZus{}occur} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{just\PYZus{}the\PYZus{}rank} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{}yax is to get the y axis for this asignment, which should be the number of words }
+              \PY{c+c1}{\PYZsh{}with that frequency / total...}
+              \PY{c+c1}{\PYZsh{}the easiest way to do this would be after all occurrances are counted, to count the number of times each }
+              \PY{c+c1}{\PYZsh{}happens and then divide by the length of occurances}
+              \PY{n}{yax} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{}word\PYZus{}rank = 0}
+              \PY{c+c1}{\PYZsh{}word\PYZus{}frequency = 0}
+          
+              \PY{n}{entry\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{c+c1}{\PYZsh{}This goes through the sorted dictoinary of words and frequencies.\PYZhy{}A }
+              \PY{k}{for} \PY{n}{entry} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}doc}\PY{p}{:}
+          
+                  \PY{c+c1}{\PYZsh{}I think this again just pretains to giving the info for a particular word, not of use to me \PYZhy{}A}
+                  \PY{c+c1}{\PYZsh{}if (entry[0] == word):}
+                  \PY{c+c1}{\PYZsh{}    word\PYZus{}rank = entry\PYZus{}num}
+                  \PY{c+c1}{\PYZsh{}    word\PYZus{}frequency = entry[1]}
+          
+                  \PY{n}{just\PYZus{}the\PYZus{}rank}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{entry\PYZus{}num}\PY{p}{)} \PY{c+c1}{\PYZsh{}this is how rank is built, from who is most frequent\PYZhy{} A}
+                  \PY{n}{entry\PYZus{}num} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{n}{just\PYZus{}the\PYZus{}occur}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{entry}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{}I want the x\PYZhy{}axis to be frequency of a word, y\PYZhy{}axis to be the fraction of distinct words }
+              \PY{c+c1}{\PYZsh{}in the text that have that frequency \PYZhy{}A}
+              
+              \PY{c+c1}{\PYZsh{}now, here to build the y axis values from the number of occurances:}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{just\PYZus{}the\PYZus{}occur}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{}count how many times this i frequency happens}
+                  \PY{n}{c} \PY{o}{=}  \PY{n}{just\PYZus{}the\PYZus{}occur}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{just\PYZus{}the\PYZus{}occur}\PY{p}{)} 
+                  \PY{n}{yax}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                  
+                  
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Word Frequencies vs that Frequency}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s frequency in }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{filename}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s2}{f words with that frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{word frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}plt.xlabel(\PYZdq{}Rank of word(\PYZbs{}\PYZdq{}\PYZdq{} + word + \PYZdq{}\PYZbs{}\PYZdq{} is rank \PYZdq{} + str(word\PYZus{}rank) + \PYZdq{})\PYZdq{})}
+              \PY{c+c1}{\PYZsh{}This was plt.loglog(just\PYZus{}the\PYZus{}rank, just\PYZus{}the\PYZus{}occur, basex=10)}
+              \PY{c+c1}{\PYZsh{}as in rank x, frequency y}
+              \PY{c+c1}{\PYZsh{}instead I want x frequency, y number with that frequency/ total}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{just\PYZus{}the\PYZus{}occur}\PY{p}{,} \PY{n}{yax}\PY{p}{,} \PY{n}{basex}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}This is just for plotting that particular word, no use to me \PYZhy{}A}
+              \PY{c+c1}{\PYZsh{}plt.scatter(}
+              \PY{c+c1}{\PYZsh{}    [word\PYZus{}rank],}
+              \PY{c+c1}{\PYZsh{}    [word\PYZus{}frequency],}
+              \PY{c+c1}{\PYZsh{}    color=\PYZdq{}orange\PYZdq{},}
+              \PY{c+c1}{\PYZsh{}    marker=\PYZdq{}*\PYZdq{},}
+              \PY{c+c1}{\PYZsh{}    s=100,}
+              \PY{c+c1}{\PYZsh{}    label=word}
+              \PY{c+c1}{\PYZsh{})}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              \PY{k}{return} \PY{n}{yax}
+          
+          \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Problem 4, part (a)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{x2} \PY{o}{=} \PY{n}{main}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mina}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dracula.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{x} \PY{o}{=} \PY{n}{main}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{le}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{les\PYZhy{}miserables.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}print(list(x))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Problem 4, part (a)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_0_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_0_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{The total area under the probability curve is 1. So, to find the probability that a vaule is greater than or equal to x we should take the integral of the pdf. In this integral, the lower limit is x, with the upper being the maximum in the domain we intend to consider. This is CS, so it probaly wont be to infinity...}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Then, integrating in terms of x and treatin alpha,x\PYZhy{}min as constants:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+b)
+The total area under the probability curve is 1. So, to find the probability that a vaule is greater than or equal to x we should take the integral of the pdf. In this integral, the lower limit is x, with the upper being the maximum in the domain we intend to consider. This is CS, so it probaly wont be to infinity{\ldots}
+Then, integrating in terms of x and treatin alpha,x-min as constants:
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{As in, after some calc, we get x\PYZhy{}min\PYZca{}(a\PYZhy{}1)*(\PYZhy{}1/x\PYZca{}(a\PYZhy{}1))}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The work is included as a seprate image, I can}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{t get it to show here}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+As in, after some calc, we get x-min\^{}(a-1)*(-1/x\^{}(a-1))
+The work is included as a seprate image, I can't get it to show here
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Estimate alpha. On a log\PYZhy{}log, power law should be a straight line with \PYZhy{}alpha as a slope. In the books, for 10\PYZca{}0 to 10\PYZca{}1 this looks true.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Here x, is the probability of a word having a particular frequency.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{0.9932895615401737}\PY{o}{*}\PY{n}{bins}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{bins}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}get the histrogram for x:}
+          \PY{c+c1}{\PYZsh{}les mis}
+          \PY{n}{lm} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{j}\PY{p}{:} \PY{n+nb}{int}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+          \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{lm}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{lm}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{lm}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram for les mis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{4000}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{4000}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} add a \PYZsq{}best fit\PYZsq{} line}
+          
+          
+          \PY{c+c1}{\PYZsh{}dracula}
+          \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{1.0038147337709697}\PY{o}{*}\PY{n}{bins}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{bins}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{dr} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{j}\PY{p}{:} \PY{n+nb}{int}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{x2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{n2}\PY{p}{,} \PY{n}{bins2}\PY{p}{,} \PY{n}{patches2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{dr}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{dr}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{dr}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram for dracula}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3000}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3000}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{These are normal histograms on the percent of the time a word appears with a certain frequency.The tails looks linear\PYZhy{} if sparse. }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c)
+Estimate alpha. On a log-log, power law should be a straight line with -alpha as a slope. In the books, for 10\^{}0 to 10\^{}1 this looks true.
+Here x, is the probability of a word having a particular frequency.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+These are normal histograms on the percent of the time a word appears with a certain frequency.The tails looks linear- if sparse. 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{}inorder to only regress on the not empty bins}
+          \PY{n}{lmh} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{bins}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}in order to only look at the line like tail}
+          \PY{n}{lmh} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{500}\PY{p}{,} \PY{n}{lmh}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For Les Mis}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{part of histogram considered (center,count):}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{lmh}\PY{p}{)}\PY{p}{)}
+          \PY{n}{LM} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{list}\PY{p}{,} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{lmh}\PY{p}{)}\PY{p}{)}\PY{p}{)}         \PY{c+c1}{\PYZsh{} keep it a generator}
+          
+          \PY{n}{m}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{LM}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{LM}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gives slope }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{m}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{this is \PYZhy{}a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For Les Mis
+part of histogram considered (center,count):
+[(575.0, 501), (766.0, 701), (916.0, 901), (1326.0, 1301), (1994.0, 1901), (3826.0, 3801)]
+gives slope  0.9932895615401737 this is -a
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{c+c1}{\PYZsh{}inorder to only regress on the not empty bins}
+          \PY{n}{drh} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{n2}\PY{p}{,}\PY{n}{bins2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}in order to only look at the line like tail}
+          \PY{n}{drh} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{400}\PY{p}{,} \PY{n}{drh}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For Drac}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{part of histogram considered (center,count):}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{drh}\PY{p}{)}\PY{p}{)}
+          \PY{n}{DR} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{list}\PY{p}{,} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{drh}\PY{p}{)}\PY{p}{)}\PY{p}{)}         \PY{c+c1}{\PYZsh{} keep it a generator}
+          
+          \PY{n}{m2}\PY{p}{,}\PY{n}{b2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{DR}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{DR}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gives slope }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{m2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{this is \PYZhy{}a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For Drac
+part of histogram considered (center,count):
+[(463.0, 401), (768.0, 701), (1274.0, 1201), (2874.0, 2801)]
+gives slope  1.0038147337709697 this is -a
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Same for ccdf. Get the ccdf by taking the sum of all x above for ech entry.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          
+          
+          \PY{n}{y} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{2.2708076923076916}\PY{o}{*}\PY{n}{bins} \PY{o}{+}\PY{l+m+mf}{10444.34388461538} 
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{bins}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}get the histrogram for x:}
+          \PY{c+c1}{\PYZsh{}les mis}
+          \PY{n}{lm} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{j}\PY{p}{:} \PY{n+nb}{int}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+          \PY{n}{n}\PY{p}{,} \PY{n}{bins3}\PY{p}{,} \PY{n}{patches3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{lm}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{lm}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{lm}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}from this originial list, you would want each entry to become the sum of all the elements above it}
+          \PY{c+c1}{\PYZsh{}so n should have each entry become the sum of the subarray from index n to end:}
+          \PY{k+kn}{import} \PY{n+nn}{functools} \PY{k}{as} \PY{n+nn}{fun}
+          \PY{n}{n3} \PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{fun}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{p}{(}\PY{k}{lambda} \PY{n}{t}\PY{p}{,} \PY{n}{j}\PY{p}{:} \PY{n}{t} \PY{o}{+} \PY{n}{j}\PY{p}{)}\PY{p}{,} \PY{n}{n}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}\PY{p}{]} \PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{n3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}print(n3) }
+          \PY{n}{bins3} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{bins3}\PY{p}{)}
+          \PY{k}{del} \PY{n}{bins3}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins3}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{n3}\PY{p}{)}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{n}{n3}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ccdf Histogram for les mis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{4000}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{14000}\PY{p}{]}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} add a \PYZsq{}best fit\PYZsq{} line}
+          
+          
+          \PY{c+c1}{\PYZsh{}dracula}
+          \PY{n}{y} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.4423546798029567}\PY{o}{*}\PY{n}{bins}
+          
+          
+          \PY{n}{dr} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{j}\PY{p}{:} \PY{n+nb}{int}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{x2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{n2}\PY{p}{,} \PY{n}{bins4}\PY{p}{,} \PY{n}{patches4} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{dr}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{dr}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{dr}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+          \PY{n}{n4} \PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{fun}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{p}{(}\PY{k}{lambda} \PY{n}{t}\PY{p}{,} \PY{n}{j}\PY{p}{:} \PY{n}{t} \PY{o}{+} \PY{n}{j}\PY{p}{)}\PY{p}{,} \PY{n}{n2}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}\PY{p}{]} \PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{n2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}print(n4) }
+          \PY{n}{bins4} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{bins4}\PY{p}{)}
+          \PY{k}{del} \PY{n}{bins4}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins4}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{n4}\PY{p}{)}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{n}{n4}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram for dracula}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3000}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{8000}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{bins}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+d)
+Same for ccdf. Get the ccdf by taking the sum of all x above for ech entry.
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}190}]:} [<matplotlib.lines.Line2D at 0x7f9cd1abddd8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{this is the best you will get, in anything else the fit line gets covered up. }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{then to fit alpha}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+this is the best you will get, in anything else the fit line gets covered up. 
+then to fit alpha
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{c+c1}{\PYZsh{}inorder to only regress on the not empty bins}
+          \PY{n}{drh2} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{n4}\PY{p}{,}\PY{n}{bins4}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}in order to only look at the line like tail}
+          \PY{c+c1}{\PYZsh{}drh =  list(filter(lambda x: x[1] \PYZgt{} 400, drh))}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For Drac}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{part of histogram considered (center,count):}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{drh2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{DR2} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{list}\PY{p}{,} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{drh2}\PY{p}{)}\PY{p}{)}\PY{p}{)}         \PY{c+c1}{\PYZsh{} keep it a generator}
+          
+          \PY{n}{m3}\PY{p}{,}\PY{n}{b3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{DR2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{DR2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{gives slope }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{m3}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{this is \PYZhy{}a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For Drac
+part of histogram considered (center,count):
+[(7966.0, 1), (6667.0, 101), (6270.0, 201), (5775.0, 301), (5379.0, 401), (4916.0, 501), (4916.0, 601), (4916.0, 701), (4148.0, 801), (4148.0, 901), (4148.0, 1001), (4148.0, 1101), (4148.0, 1201), (2874.0, 1301), (2874.0, 1401), (2874.0, 1501), (2874.0, 1601), (2874.0, 1701), (2874.0, 1801), (2874.0, 1901), (2874.0, 2001), (2874.0, 2101), (2874.0, 2201), (2874.0, 2301), (2874.0, 2401), (2874.0, 2501), (2874.0, 2601), (2874.0, 2701), (2874.0, 2801)]
+
+gives slope  -1.4423546798029567 this is -a
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{c+c1}{\PYZsh{}inorder to only regress on the not empty bins}
+          \PY{n}{lmh2} \PY{o}{=}  \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{n3}\PY{p}{,}\PY{n}{bins3}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}in order to only look at the line like tail}
+          \PY{c+c1}{\PYZsh{}lmh =  list(filter(lambda x: x[1] \PYZgt{} 500, lmh))}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For Les Mis}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{part of histogram considered (center,count):}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{lmh2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{LM2} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{list}\PY{p}{,} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{lmh2}\PY{p}{)}\PY{p}{)}\PY{p}{)}         \PY{c+c1}{\PYZsh{} keep it a generator}
+          
+          \PY{n}{m4}\PY{p}{,}\PY{n}{b4} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{LM2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{LM2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{gives slope }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{m4}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{this is \PYZhy{}a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For Les Mis
+part of histogram considered (center,count):
+[(15067.0, 1), (12511.0, 101), (11552.0, 201), (10595.0, 301), (9868.0, 401), (9403.0, 501), (8828.0, 601), (8828.0, 701), (8062.0, 801), (8062.0, 901), (7146.0, 1001), (7146.0, 1101), (7146.0, 1201), (7146.0, 1301), (5820.0, 1401), (5820.0, 1501), (5820.0, 1601), (5820.0, 1701), (5820.0, 1801), (5820.0, 1901), (3826.0, 2001), (3826.0, 2101), (3826.0, 2201), (3826.0, 2301), (3826.0, 2401), (3826.0, 2501), (3826.0, 2601), (3826.0, 2701), (3826.0, 2801), (3826.0, 2901), (3826.0, 3001), (3826.0, 3101), (3826.0, 3201), (3826.0, 3301), (3826.0, 3401), (3826.0, 3501), (3826.0, 3601), (3826.0, 3701), (3826.0, 3801)]
+
+gives slope  -2.2708076923076916 this is -a
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Use the Max Likelihood Estimator to estimate alpha}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{for Les Mis}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{a=}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lmMLE}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}for x being the data (word counts? part a\PYZsq{}s x lm and x2 dr) take the natural log of all elements and sum them}
+          \PY{c+c1}{\PYZsh{}divide the number of elements by this}
+          \PY{c+c1}{\PYZsh{}then add 1}
+          \PY{k+kn}{import} \PY{n+nn}{math}
+          \PY{n}{lmMLE} \PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{fun}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{f}\PY{p}{,}\PY{n}{j}\PY{p}{:}\PY{n}{f}\PY{o}{+}\PY{n}{j}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{i}\PY{p}{:} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+e)
+Use the Max Likelihood Estimator to estimate alpha
+for Les Mis
+a= 0.6100710015950561
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Use the Max Likelihood Estimator to estimate alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}for x being the data (word counts? part a\PYZsq{}s x lm and x2 dr) take the natural log of all elements and sum them}
+          \PY{c+c1}{\PYZsh{}divide the number of elements by this}
+          \PY{c+c1}{\PYZsh{}then add 1}
+          \PY{k+kn}{import} \PY{n+nn}{math}
+          \PY{n}{drMLE} \PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x2}\PY{p}{)}\PY{o}{/}\PY{n}{fun}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{f}\PY{p}{,}\PY{n}{j}\PY{p}{:}\PY{n}{f}\PY{o}{+}\PY{n}{j}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{i}\PY{p}{:} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{x2}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+}\PY{l+m+mi}{1}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{for Drac}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{a=}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{drMLE}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{These both are so diffrent than the prior part...}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{either the histogram approximation is very bad or my work is very bad :(}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+e)
+Use the Max Likelihood Estimator to estimate alpha
+
+for Drac
+a= 0.4012982749180688 
+These both are so diffrent than the prior part{\ldots}
+either the histogram approximation is very bad or my work is very bad :(
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
